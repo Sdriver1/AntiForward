@@ -1,0 +1,19 @@
+{
+  "name": "antiforwardbot",
+  "version": "1.0.0",
+  "description": "Removes any forwarded messages from your server",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "author": "Sdriver1 / https://discord.com/users/691506668781174824",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/core": "^2.0.1",
+    "@discordjs/rest": "^2.4.2",
+    "better-sqlite3": "^11.7.2",
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.7",
+    "sqlite3": "^5.1.7"
+  }
+}

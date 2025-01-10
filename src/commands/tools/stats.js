@@ -25,11 +25,33 @@ module.exports = {
             name: "Servers",
             value: `${serverCount}`,
             inline: true,
+          },
+          {
+            name: "Uptime",
+            value: `${formatUptime(process.uptime())}`,
+            inline: true,
           }
         )
         .setTimestamp();
 
       interaction.reply({ embeds: [statsEmbed] });
     });
+    function formatUptime(seconds) {
+      const timeUnits = {
+        day: 3600 * 24,
+        hour: 3600,
+        minute: 60,
+        second: 1,
+      };
+      let result = [];
+      for (const [unit, amountInSeconds] of Object.entries(timeUnits)) {
+        const quantity = Math.floor(seconds / amountInSeconds);
+        seconds %= amountInSeconds;
+        if (quantity > 0) {
+          result.push(`${quantity} ${unit}${quantity > 1 ? "s" : ""}`);
+        }
+      }
+      return result.join(", ");
+    }
   },
 };

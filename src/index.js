@@ -1,6 +1,10 @@
 require("dotenv").config();
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const { Client, Collection, GatewayIntentBits, Events } = require("discord.js");
 const fs = require("fs");
+const eventHandlers = {
+  handleGuildCreate: require("./events/bot/join"),
+  handleGuildDelete: require("./events/bot/leaves"),
+};
 
 const client = new Client({
   intents: [
@@ -22,6 +26,13 @@ for (const folder of functionFolders) {
     require(`./functions/${folder}/${file}`)(client);
   }
 }
+
+client.on(Events.GuildCreate, (guild) =>
+  eventHandlers.handleGuildCreate(client, guild)
+);
+client.on(Events.GuildDelete, (guild) =>
+  eventHandlers.handleGuildDelete(client, guild)
+);
 
 process.on("unhandledRejection", async (reason) => {
   console.error(reason);

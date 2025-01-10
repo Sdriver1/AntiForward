@@ -22,6 +22,19 @@ module.exports = (client) => {
               );
           }
           break;
+          case "bot":
+          for (const file of eventFiles) {
+            const event = require(`../../events/${folder}/${file}`);
+            if (event.once)
+              client.once(event.name, (...args) =>
+                event.execute(...args, client)
+              );
+            else
+              client.on(event.name, (...args) =>
+                event.execute(...args, client)
+              );
+          }
+          break;
         case "detection":
           for (const file of eventFiles) {
             const event = require(`../../events/${folder}/${file}`);
